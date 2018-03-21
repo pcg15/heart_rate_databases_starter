@@ -20,14 +20,14 @@ def postInfo():
         user.heart_rate_times.append(time)
         user.save()
     else:
-        u = models.User(email, age, [], [])
-        u.heart_rate.append(heart_rate)
-        u.heart_rate_times.append(datetime.datetime.now())
-        u.save()
+        user = models.User(email, age, [], [])
+        user.heart_rate.append(heart_rate)
+        user.heart_rate_times.append(datetime.datetime.now())
+        user.save()
     response = {
         "user_email": user.email(),
-        "user_heart_rate": heart_rate(),
-        "heart_rate_times": heart_rate_times()
+        "user_heart_rate": user.heart_rate(),
+        "heart_rate_times": user.heart_rate_times()
     }
     return jsonify(response)
 
