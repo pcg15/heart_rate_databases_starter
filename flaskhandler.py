@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from pymodm import connect
 import models
 import datetime
+connect("mongodb://localhost:27017/heart_rate_app")
 app = Flask(__name__)
 
 @app.route("/api/heart_rate", methods=["POST"])
@@ -10,101 +11,51 @@ def postInfo():
     Communicates with database to store user info
     """
     r = request.get_json()
-    connect("mongodb://localhost:27017/heart_rate_app")
     email = r["user_email"]
     age = r["user_age"]
     heart_rate = r["heart_rate"]
-    user = models.User.objects.raw({"_id": email}).first()
-    if user.exists():
+    try:
+        user = models.User.objects.raw({"_id": email}).first()
         user.heart_rate.append(heart_rate)
-        user.heart_rate_times.append(time)
+        user.heart_rate_times.append(datetime.datetime.now())
         user.save()
-    else:
+    except:
         user = models.User(email, age, [], [])
         user.heart_rate.append(heart_rate)
         user.heart_rate_times.append(datetime.datetime.now())
         user.save()
     response = {
-        "user_email": user.email(),
-        "user_heart_rate": user.heart_rate(),
-        "heart_rate_times": user.heart_rate_times()
+        "user_email": user.email,
+        "user_heart_rate": user.heart_rate,
+        "heart_rate_times": user.heart_rate_times
     }
     return jsonify(response)
 
 @app.route("/api/heart_rate/<user_email>", methods=["GET"])
-def getHeartRate():
+def getHeartRate(user_email):
     """
     Returns all heart rate measurements for user
     """
-    email = "{0}"
-    connect("mongodb://localhost:27017/heart_rate_app")
-    user = models.User.objects.raw({"_id": email}).first()
-    print(user.heart_rate())
+    try:
+        user = models.User.objects.raw({"_id": user_email}).first()
+    except:
+        raise IOError("User not in database")
+    response = {
+        "user_heart_rate": user.heart_rate
+    }
+    return jsonify(response)
 
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
-def getAverage():
+def getAverage(user_email):
     """
     Returns all heart rate measurements for user
     """
-    email = "{0}"
-    connect("mongodb://localhost:27017/heart_rate_app")
-    user = models.User.objects.raw({"_id": email}).first()
-    average_heart_rate = sum(user.heart_rate())/len(user.heart_rate())
-    print(average_heart_rate())
-
-@app.route("/api/heart_rate/interval_average", methods=["POST"])
-def postIntervalAverage():
-    """
-    Returns all heart rate measurements for user
-    """
-    import numpy
-    r = request.get_json()
-    connect("mongodb://localhost:27017/heart_rate_app")
-    email = r["user_email"]
-    date = r["heart_rate_average_since"]
-    user = models.User.objects.raw({"_id": email}).first()
-    if user.exists():
-        times = user.heart_rate_times()
-        index = numpy.where(times >= date)[0]
-        rates = user.heart_rate()
-        filtered_rates = rates[index:]
-        average_heart_rate = sum(filtered_rates)/len(filtered_rates)
-        age = user.age()
-        if age > 15:
-            if average_heart_rate > 100:
-                tachycardia = True
-            else:
-                tachycardia = False
-        if 12 <= age <= 15:
-            if average_heart_rate > 119:
-                tachycardia = True
-            else:
-                tachycardia = False
-        if 8 <= age <= 11:
-            if average_heart_rate > 130:
-                tachycardia = True
-            else:
-                tachycardia = False
-        if 5 <= age <= 7:
-            if average_heart_rate > 133:
-                tachycardia = True
-            else:
-                tachycardia = False
-        if 3 <= age <= 4:
-            if average_heart_rate > 137:
-                tachycardia = True
-            else:
-                tachycardia = False
-        if 1 <= age <= 2:
-            if average_heart_rate > 151:
-                tachycardia = True
-            else:
-                tachycardia = False
-        if tachycardia == True:
-            print(average_heart_rate)
-            print("User is tachycardic")
-        else:
-            print(average_heart_rate)
-            print("User is not tachycardic")
-    else:
-        print("User not found")
+    try:
+        user = models.User.objects.raw({"_id": user_email}).first()
+        average_heart_rate = sum(user.heart_rate)/len(user.heart_rate)
+    except:
+        raise IOError("User not in database")
+    response = {
+        "average_heart_rate": average_heart_rate
+    }
+    return jsonify(response)
