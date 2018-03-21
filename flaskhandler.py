@@ -24,9 +24,12 @@ def postInfo():
         u.heart_rate.append(heart_rate)
         u.heart_rate_times.append(datetime.datetime.now())
         u.save()
-    print(user.email)
-    print(user.heart_rate)
-    print(user.heart_rate_times)
+    response = {
+        "user_email": user.email(),
+        "user_heart_rate": heart_rate(),
+        "heart_rate_times": heart_rate_times()
+    }
+    return jsonify(response)
 
 @app.route("/api/heart_rate/<user_email>", methods=["GET"])
 def getHeartRate():
@@ -39,7 +42,7 @@ def getHeartRate():
     print(user.heart_rate())
 
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
-def getHeartRate():
+def getAverage():
     """
     Returns all heart rate measurements for user
     """
@@ -50,7 +53,7 @@ def getHeartRate():
     print(average_heart_rate())
 
 @app.route("/api/heart_rate/interval_average", methods=["POST"])
-def getHeartRate():
+def postIntervalAverage():
     """
     Returns all heart rate measurements for user
     """
@@ -72,27 +75,27 @@ def getHeartRate():
                 tachycardia = True
             else:
                 tachycardia = False
-        if 12 <= age && age <= 15:
+        if 12 <= age <= 15:
             if average_heart_rate > 119:
                 tachycardia = True
             else:
                 tachycardia = False
-        if 8 <= age && age <= 11:
+        if 8 <= age <= 11:
             if average_heart_rate > 130:
                 tachycardia = True
             else:
                 tachycardia = False
-        if 5 <= age && age <= 7:
+        if 5 <= age <= 7:
             if average_heart_rate > 133:
                 tachycardia = True
             else:
                 tachycardia = False
-        if 3 <= age && age <= 4:
+        if 3 <= age <= 4:
             if average_heart_rate > 137:
                 tachycardia = True
             else:
                 tachycardia = False
-        if 1 <= age && age <= 2:
+        if 1 <= age <= 2:
             if average_heart_rate > 151:
                 tachycardia = True
             else:
