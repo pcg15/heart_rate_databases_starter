@@ -9,8 +9,8 @@ def postInfo():
     """
     Communicates with database to store user info
     """
-    r = request.get_json()
     connect("mongodb://localhost:27017/heart_rate_app")
+    r = request.get_json()
     email = r["user_email"]
     age = r["user_age"]
     heart_rate = r["heart_rate"]
