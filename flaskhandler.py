@@ -63,7 +63,7 @@ def getAverage(user_email):
         raise KeyError("User not in database")
         return 400
     response = {
-        "average_heart_rate": average_heart_rate,
+        "average_heart_rate": average_heart_rate
     }
     return jsonify(response), 200
 
