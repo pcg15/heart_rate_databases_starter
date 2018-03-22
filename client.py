@@ -15,7 +15,7 @@ def postInfo():
     data = {
         "user_email": "pcg@duke.edu",
         "user_age": 24,
-        "heart_rate": 78
+        "heart_rate": 130
     }
     r = requests.post("http://0.0.0.0:5000/api/heart_rate", json=data)
 
@@ -32,8 +32,8 @@ def getAverage():
     """
     Gets average heart rate for user
     """
-    r3 = requests.get("http://0.0.0.0:5000/api/heart_rate/average\
-                      /pcg@duke.edu")
+    r3 = requests.get("http://0.0.0.0:5000/api/heart_rate/average/pcg@duke.edu"
+                      )
     print(r3.json())
 
 
