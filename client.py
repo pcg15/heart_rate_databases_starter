@@ -1,10 +1,12 @@
 import requests
 
+
 def main():
     postInfo()
     getHeartRate()
     getAverage()
     postIntervalAverage()
+
 
 def postInfo():
     """
@@ -17,6 +19,7 @@ def postInfo():
     }
     r = requests.post("http://0.0.0.0:5000/api/heart_rate", json=data)
 
+
 def getHeartRate():
     """
     Gets heart rate data from server for user
@@ -24,12 +27,15 @@ def getHeartRate():
     r2 = requests.get("http://0.0.0.0:5000/api/heart_rate/pcg@duke.edu")
     print(r2.json())
 
+
 def getAverage():
     """
     Gets average heart rate for user
     """
-    r3 = requests.get("http://0.0.0.0:5000/api/heart_rate/average/pcg@duke.edu")
+    r3 = requests.get("http://0.0.0.0:5000/api/heart_rate/average\
+                      /pcg@duke.edu")
     print(r3.json())
+
 
 def postIntervalAverage():
     """
@@ -39,7 +45,8 @@ def postIntervalAverage():
         "user_email": "pcg@duke.edu",
         "heart_rate_average_since": "2018-03-09 11:00:36.372339"
     }
-    r4 = requests.post("http://0.0.0.0:5000/api/heart_rate/interval_average", json=data)
+    r4 = requests.post("http://0.0.0.0:5000/api/heart_rate/interval_average",
+                       json=data)
     print(r4.json())
 
 if __name__ == '__main__':
