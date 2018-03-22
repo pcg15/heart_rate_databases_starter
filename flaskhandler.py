@@ -1,10 +1,9 @@
 from flask import Flask, jsonify, request
 from pymodm import connect
-import models
-import datetime
 from datetime import datetime
 from main import add_heart_rate, create_user
 from time_conversion import time_conversion
+import models
 import pandas as pd
 import numpy as np
 connect("mongodb://localhost:27017/heart_rate_app")
@@ -88,6 +87,5 @@ def postIntervalAverage():
     response = {
         "average_heart_rate": average_heart_rate,
         "is_tachycardic": is_tachycardic
-        #"output": rates_index
     }
     return jsonify(response)
