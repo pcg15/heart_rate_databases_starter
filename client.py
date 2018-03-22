@@ -15,7 +15,7 @@ def postInfo():
     data = {
         "user_email": "pcg@duke.edu",
         "user_age": 24,
-        "heart_rate": 130
+        "heart_rate": 120
     }
     r = requests.post("http://0.0.0.0:5000/api/heart_rate", json=data)
 
