@@ -2,6 +2,21 @@ import requests
 
 
 def main():
+    """
+    Program that will post user heart rate information to a server that will
+    store the information in a database, retrieve the users heart rate from
+    the database, retrieve the average heart rate for the user, and post a
+    user specified time period for average heart rate calculations and
+    tachycardic indication
+
+    :param json: json data containing the user email, age, heart rate, and date
+    selection
+
+    :returns heart_rate: all heart rate records found for user
+    :returns average_heart_rate: average heart rate over all recorded values
+    :returns average_heart_rate_since: average heart rate over certain period
+    :returns is_tachycardic: indication of where heart rate is tachycardic
+    """
     postInfo()
     getHeartRate()
     getAverage()
@@ -11,6 +26,8 @@ def main():
 def postInfo():
     """
     Sends user info to server
+
+    :param json: json data containing the user email, age, and heart rate
     """
     data = {
         "user_email": "pcg@duke.edu",
@@ -23,6 +40,8 @@ def postInfo():
 def getHeartRate():
     """
     Gets heart rate data from server for user
+
+    :returns heart_rate: all heart rate records found for user
     """
     r2 = requests.get("http://0.0.0.0:5000/api/heart_rate/pcg@duke.edu")
     print(r2.json())
@@ -31,6 +50,8 @@ def getHeartRate():
 def getAverage():
     """
     Gets average heart rate for user
+
+    :returns average_heart_rate: average heart rate over all recorded values
     """
     r3 = requests.get("http://0.0.0.0:5000/api/heart_rate/average/pcg@duke.edu"
                       )
@@ -40,6 +61,12 @@ def getAverage():
 def postIntervalAverage():
     """
     Posts average heart rate calculation for user
+
+    :param json: json data containing the user email and date
+    selection
+
+    :returns average_heart_rate_since: average heart rate over certain period
+    :returns is_tachycardic: indication of where heart rate is tachycardic
     """
     data = {
         "user_email": "pcg@duke.edu",

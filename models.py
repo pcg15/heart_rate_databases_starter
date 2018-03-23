@@ -2,6 +2,9 @@ from pymodm import fields, MongoModel
 
 
 class User(MongoModel):
+    """
+    Model for user recording
+    """
     email = fields.EmailField(primary_key=True)
     age = fields.IntegerField()
     heart_rate = fields.ListField(field=fields.IntegerField())

@@ -10,12 +10,31 @@ import models
 import numpy as np
 connect("mongodb://localhost:27017/heart_rate_app")
 app = Flask(__name__)
+"""
+Flask server file logging and creating user information in a database,
+retrieving hear rate information for the user, retrieving the average heart
+rate over all records, finding average heart rate over a user specified period,
+and determining if average heart rate is tachycardic
+
+:param json: json data containing the user email, age, heart rate, and date
+selection
+
+:returns heart_rate: all heart rate records found for user
+:returns average_heart_rate: average heart rate over all recorded values
+:returns average_heart_rate_since: average heart rate over certain period
+:returns is_tachycardic: indication of where heart rate is tachycardic
+"""
 
 
 @app.route("/api/heart_rate", methods=["POST"])
 def postInfo():
     """
     Communicates with database to store user info
+
+    :param json: json data containing the user email, age, heart rate, and date
+    selection
+
+    :raises ValueError: Error raised if data is not in the correct format
     """
     try:
         r = request.get_json()
@@ -39,6 +58,11 @@ def postInfo():
 def getHeartRate(user_email):
     """
     Returns all heart rate measurements for user
+
+    :param user_email: the users email
+
+    :returns user_heart_rate: all heart rate measurements in database for user
+    :raises KeyError: Error raised if data is not in the database
     """
     try:
         user = models.User.objects.raw({"_id": user_email}).first()
@@ -55,6 +79,11 @@ def getHeartRate(user_email):
 def getAverage(user_email):
     """
     Returns all heart rate measurements for user
+
+    :param user_email: the users email
+
+    :returns average_heart_rate: average heart rate over all measurements
+    :raises KeyError: Error raised if data is not in the database
     """
     try:
         user = models.User.objects.raw({"_id": user_email}).first()
@@ -72,6 +101,13 @@ def getAverage(user_email):
 def postIntervalAverage():
     """
     Returns all heart rate measurements for user
+
+    :param json: user email and date selection in json format
+
+    :returns average_heart_rate: heart rate average over specified period
+    :returns is_tachycardic: indication if average heart rate is tachycardic
+    :raises ValueError: Error raised if data is not in the correct format
+    :raises KeyError: Error raised if data is not in the database
     """
     try:
         r = request.get_json()

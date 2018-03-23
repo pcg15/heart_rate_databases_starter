@@ -4,6 +4,16 @@ import datetime
 
 
 def add_heart_rate(email, heart_rate, time):
+    """
+    Adds heart rate data for user
+
+    :param email: the users email
+    :param heart_rate: the users heart rate
+    :param time: timestamp for when the data is being recorded
+
+    :returns heart_rate: appended list of user heart rate data
+    :raises heart_rate_times: appended list timestamps
+    """
     user = models.User.objects.raw({"_id": email}).first()
     user.heart_rate.append(heart_rate)
     user.heart_rate_times.append(time)
@@ -11,6 +21,17 @@ def add_heart_rate(email, heart_rate, time):
 
 
 def create_user(email, age, heart_rate, time):
+    """
+    Creates new user
+
+    :param email: the users email
+    :param age: the users age
+    :param heart_rate: the users heart rate
+    :param time: timestamp for when the data is being recorded
+
+    :returns heart_rate: appended list of user heart rate data
+    :raises heart_rate_times: appended list timestamps
+    """
     u = models.User(email, age, [], [])
     u.heart_rate.append(heart_rate)
     u.heart_rate_times.append(time)
@@ -18,6 +39,15 @@ def create_user(email, age, heart_rate, time):
 
 
 def print_user(email):
+    """
+    Prints user information
+
+    :param email: the users email
+
+    :returns email: users email
+    :returns heart_rate: appended list of user heart rate data
+    :raises heart_rate_times: appended list timestamps
+    """
     user = models.User.objects.raw({"_id": email}).first()
     print(user.email)
     print(user.heart_rate)
