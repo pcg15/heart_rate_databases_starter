@@ -102,11 +102,11 @@ def getAverage(user_email):
     try:
         user = models.User.objects.raw({"_id": user_email}).first()
         logging.info("/heart_rate/average/<user_email>: user found")
-        logging.debug("/heart_rate/average/<user_email>: user = "
-                      + str(user.email))
+        logging.debug("/heart_rate/average/<user_email>: user = " +
+                      str(user.email))
         average_heart_rate = average_hr(user.heart_rate)
-        logging.debug("/heart_rate/avaerae/<user_email>: average = "
-                      + str(average_heart_rate))
+        logging.debug("/heart_rate/avaerae/<user_email>: average = " +
+                      str(average_heart_rate))
     except:
         raise KeyError("User not in database")
         logging.warning("/heart_rate/<user_email>: user not found in database")
@@ -156,10 +156,10 @@ def postIntervalAverage():
         rates_index = np.where(times == filtered_times)[0]
         logging.info("/heart_rate/interval_average: times found and filtered")
         logging.debug("heart_rate/interval_average: times = " + str(times))
-        logging.debug("heart_rate/interval_average: filtered_times = " \
-                      + str(filtered_times))
-        logging.debug("heart_rate/interval_average: rates_index = " \
-                      + str(rates_index))
+        logging.debug("heart_rate/interval_average: filtered_times = " +
+                      str(filtered_times))
+        logging.debug("heart_rate/interval_average: rates_index = " +
+                      str(rates_index))
     except:
         raise KeyError("No time data found for user")
         logging.warning("heart_rate/interval_average: time data not found")
@@ -171,10 +171,10 @@ def postIntervalAverage():
         logging.info("/heart_rate/interval_average: average heart rate\
                      calculated")
         logging.debug("heart_rate/interval_average: rates = " + str(rates))
-        logging.debug("heart_rate/interval_average: filtered_rates = " \
-                      + str(filtered_rates))
-        logging.debug("heart_rate/interval_average: average_heart_rate = " \
-                      + str(average_heart_rate))
+        logging.debug("heart_rate/interval_average: filtered_rates = " +
+                      str(filtered_rates))
+        logging.debug("heart_rate/interval_average: average_heart_rate = " +
+                      str(average_heart_rate))
     except:
         raise KeyError("No heart rate data found for user")
         logging.warning("heart_rate/interval_average: hr data not found")
@@ -183,8 +183,8 @@ def postIntervalAverage():
         is_tachycardic = tachycardia(user.age, average_heart_rate)
         logging.info("/heart_rate/interval_average: tachycardia risk\
                      calculated")
-        logging.debug("heart_rate/interval_average: is_tachycardic = "\
-                      + str(is_tachycardic))
+        logging.debug("heart_rate/interval_average: is_tachycardic = " +
+                      str(is_tachycardic))
     except:
         raise KeyError("User age not found in database")
         logging.warning("heart_rate/interval_average: age not in database")
