@@ -68,3 +68,12 @@ def test_tachycardic():
     assert function == "User is tachycardic"
     function2 = tachycardic(y)
     assert function2 == "User is NOT tachycardic"
+
+
+def test_exceptions():
+    import pytest
+    with pytest.raises(KeyError, message="Anticipated KeyError"):
+        key = {'a': 5, 'b': 7}
+        k = key['c']
+    with pytest.raises(ValueError, message="Anticipated ValueError"):
+        val = int("hello")
