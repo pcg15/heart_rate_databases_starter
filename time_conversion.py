@@ -19,5 +19,14 @@ def time_conversion(time):
 
 
 def string_conversion(since):
+    """
+    Converting date string to the same format because for some
+    reason no matter what I do my computer refuses to put things into
+    the database in a workable format
+
+    :param date: user input string for date
+
+    :returns date: datetime variable in a specific usable format
+    """
     date = datetime.strptime(since, '%Y-%m-%d %H:%M:%S.%f')
     return date
