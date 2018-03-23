@@ -2,6 +2,11 @@ def tachycardia(age, average_heart_rate):
     """
     Uses age and average heart rate data to determine if the patient is
     tachycardic
+
+    :param age: user age
+    :param average_heart_rate: the average heart rate
+
+    :returns is_tachycardic: indication if average heart rate is tachycardic
     """
     if age > 15:
         if average_heart_rate > 100:
@@ -41,6 +46,10 @@ def tachycardic(tachycardia):
     """
     Returns string declaring whether or not given the tachycardia boolean the
     patient is tachycardic
+
+    :param tachycardia: boolean for if heart rate is in tachycardic range
+
+    :returns is_tachycardic: indication if average heart rate is tachycardic
     """
     if tachycardia is True:
         is_tachycardic = "User is tachycardic"
