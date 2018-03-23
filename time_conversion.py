@@ -16,3 +16,8 @@ def time_conversion(time):
         times = time[x].strftime('%Y-%m-%d %H:%M:%S.%f')
         list_.append(datetime.strptime(times, '%Y-%m-%d %H:%M:%S.%f'))
     return list_
+
+
+def string_conversion(since):
+    date = datetime.strptime(since, '%Y-%m-%d %H:%M:%S.%f')
+    return date

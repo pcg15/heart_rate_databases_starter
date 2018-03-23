@@ -40,6 +40,14 @@ def test_time_conversion():
     assert function[2] == t
 
 
+def test_string_conversion():
+    from time_conversion import string_conversion
+    since = "2018-03-09 11:00:36.372339"
+    str_ = datetime.datetime.now()
+    function = string_conversion(since)
+    assert type(str_) == type(function)
+
+
 def test_tachycardia():
     from tachycardia import tachycardia
     age = 24
