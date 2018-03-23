@@ -1,4 +1,5 @@
 # heart_rate_databases_introduction [![Build Status](https://travis-ci.org/pcg15/heart_rate_databases_introduction.svg?branch=master)](https://travis-ci.org/pcg15/heart_rate_databases_introduction)
+### ONLINE README: http://heart-rate-databases-introduction.readthedocs.io/en/latest/
 Databases Assignment ([here](https://github.com/mlp6/Medical-Software-Design/blob/master/Lectures/databases/main.md#mini-projectassignment)). 
 
 Server code can be found in `flaskhandler.py`. The accompanying client program is found in `client.py`.
