@@ -12,7 +12,6 @@ def add_heart_rate(email, heart_rate, time):
     :param time: timestamp for when the data is being recorded
 
     :returns heart_rate: appended list of user heart rate data
-    :raises heart_rate_times: appended list timestamps
     """
     user = models.User.objects.raw({"_id": email}).first()
     user.heart_rate.append(heart_rate)
@@ -30,7 +29,6 @@ def create_user(email, age, heart_rate, time):
     :param time: timestamp for when the data is being recorded
 
     :returns heart_rate: appended list of user heart rate data
-    :raises heart_rate_times: appended list timestamps
     """
     u = models.User(email, age, [], [])
     u.heart_rate.append(heart_rate)
@@ -46,7 +44,6 @@ def print_user(email):
 
     :returns email: users email
     :returns heart_rate: appended list of user heart rate data
-    :raises heart_rate_times: appended list timestamps
     """
     user = models.User.objects.raw({"_id": email}).first()
     print(user.email)
