@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from pymodm import connect
-from datetime import datetime
+import datetime
 from main import add_heart_rate, create_user
-from time_conversion import time_conversion
+from time_conversion import time_conversion, string_conversion
 from average import average_hr
 from filtering import time_filtering, rate_filtering
 from tachycardia import tachycardia
@@ -39,6 +39,8 @@ def postInfo():
 
     :raises ValueError: Error raised if data is not in the correct format
     """
+    time = datetime.datetime.now()
+    logging.debug("/heart_rate: time = " + str(time))
     try:
         r = request.get_json()
         email = r["user_email"]
@@ -48,15 +50,13 @@ def postInfo():
         logging.debug("/heart_rate: email = " + str(email))
         logging.debug("/heart_rate: age = " + str(age))
         logging.debug("/heart_rate: heart rate = " + str(heart_rate))
-        time = datetime.datetime.now()
-        logging.debug("/heart_rate: time = " + str(time))
     except:
         raise ValueError("Submit json data for email, age, and heart_rate")
         logging.warning("/heart_rate: not all data points found or not json")
         return 400
     try:
         user = add_heart_rate(email, heart_rate, time)
-        logging.info("/heart_rate: user found in database")
+        logging.info("/heart_rate: user located in database and info appended")
         print("New heart rate information was added")
     except:
         user = create_user(email, age, heart_rate, time)
@@ -77,7 +77,7 @@ def getHeartRate(user_email):
     """
     try:
         user = models.User.objects.raw({"_id": user_email}).first()
-        logging.info("/heart_rate/<user_email>: user found")
+        logging.info("/heart_rate/<user_email>: user found and info extracted")
         logging.debug("/heart_rate/<user_email>: user = " + str(user.email))
     except:
         raise KeyError("User not in database")
@@ -86,6 +86,8 @@ def getHeartRate(user_email):
     response = {
         "user_heart_rate": user.heart_rate
     }
+    logging.debug("/heart_rate/<user_email>: heart_rate = " +
+                  str(user.heart_rate))
     return jsonify(response), 200
 
 
@@ -101,7 +103,8 @@ def getAverage(user_email):
     """
     try:
         user = models.User.objects.raw({"_id": user_email}).first()
-        logging.info("/heart_rate/average/<user_email>: user found")
+        logging.info("/heart_rate/average/<user_email>: user found in database\
+                     and info extracted")
         logging.debug("/heart_rate/average/<user_email>: user = " +
                       str(user.email))
         average_heart_rate = average_hr(user.heart_rate)
@@ -132,8 +135,8 @@ def postIntervalAverage():
     try:
         r = request.get_json()
         email = r["user_email"]
-        date = datetime.strptime(r["heart_rate_average_since"],
-                                 '%Y-%m-%d %H:%M:%S.%f')
+        since = r["heart_rate_average_since"]
+        date = string_conversion(since)
         logging.info("/heart_rate/interval_average: data received and\
                      extracted from json")
         logging.debug("heart_rate/interval_average: email = " + str(email))
