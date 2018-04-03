@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from pymodm import connect
 import datetime
 from main import add_heart_rate, create_user
@@ -13,6 +14,7 @@ logging.basicConfig(filename="flaskhandler.txt", format='%(levelname)s\
 %(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 connect("mongodb://localhost:27017/heart_rate_app")
 app = Flask(__name__)
+CORS(app)
 """
 Flask server file logging and creating user information in a database,
 retrieving hear rate information for the user, retrieving the average heart
