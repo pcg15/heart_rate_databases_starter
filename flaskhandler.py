@@ -199,3 +199,31 @@ def postIntervalAverage():
         "is_tachycardic": is_tachycardic
     }
     return jsonify(response), 200
+
+@app.route("/api/heart_rate/get_data/<user_email>", methods=["GET"])
+def getData(user_email):
+    """
+    Returns all heart rate measurements and time stamps for a user
+
+    :param user_email: the users email
+
+    :returns user_heart_rate: all heart rate measurements in database for user
+    :raises KeyError: Error raised if data is not in the database
+    """
+    try:
+        user = models.User.objects.raw({"_id": user_email}).first()
+        logging.info("/heart_rate/<user_email>: user found and info extracted")
+        logging.debug("/heart_rate/<user_email>: user = " + str(user.email))
+    except:
+        raise KeyError("User not in database")
+        logging.warning("/heart_rate/<user_email>: user not found in database")
+        return 400
+    response = {
+        "time_stamp": user.heart_rate_times,
+        "user_heart_rate": user.heart_rate
+    }
+    logging.debug("/heart_rate/<user_email>: time_stamp = " +
+                  str(user.heart_rate_times))
+    logging.debug("/heart_rate/<user_email>: heart_rate = " +
+                  str(user.heart_rate))
+    return jsonify(response), 200
