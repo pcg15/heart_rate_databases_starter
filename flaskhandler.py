@@ -200,6 +200,7 @@ def postIntervalAverage():
     }
     return jsonify(response), 200
 
+
 @app.route("/api/heart_rate/get_data/<user_email>", methods=["GET"])
 def getData(user_email):
     """
