@@ -1,6 +1,8 @@
 # heart_rate_databases_introduction [![Build Status](https://travis-ci.org/pcg15/heart_rate_databases_introduction.svg?branch=master)](https://travis-ci.org/pcg15/heart_rate_databases_introduction)
-### ONLINE README: http://heart-rate-databases-introduction.readthedocs.io/en/latest/
+## ONLINE README: http://heart-rate-databases-introduction.readthedocs.io/en/latest/
 Databases Assignment ([here](https://github.com/mlp6/Medical-Software-Design/blob/master/Lectures/databases/main.md#mini-projectassignment)). 
+
+### ABOUT
 
 Server code can be found in `flaskhandler.py`. The accompanying client program is found in `client.py`.
 
@@ -12,6 +14,8 @@ This server handles GET and POST requests for the following instances:
 * `GET /api/heart_rate/get_data/<user_email>` that finds user information and returns heart rate and accompanying time stamp information for the given user
 
 The `client.py` file can be altered to reflect changing user input. Given the server and client files, the program should be able to handle all instances stated above.
+
+### GETTING STARTED
 
 To get started with this program, you first need to get the server program running. After installing all python dependencies using 
 ```
