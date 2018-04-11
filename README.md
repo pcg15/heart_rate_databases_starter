@@ -14,11 +14,11 @@ gunicorn --bind 0.0.0.0:5000 flaskhandler:app
 ```
 or edit with the address of your virtual machine if you wish to run the server there instead of on your local machine. The `client.py` code will also need to be edited (lines 38, 48, 59-60, 79, and 90-91) based on where you choose to run your server.
 All other python files in this repo contain functions called by `flaskhandler.py` and are needed in order for the server to function properly. This includes 
-*`average.py` : calculates average heart rate 
-*`filtering.py` : helps retrieve user-specified heart rate data
-*`main.py` : template for finding and creating a new user in mongo
-*`models.py` : model file for a user in the mongo database
-*`tachycardia.py` : determines whether a given heart rate is considered tachycardic given the patient's age
+* `average.py` : calculates average heart rate 
+* `filtering.py` : helps retrieve user-specified heart rate data
+* `main.py` : template for finding and creating a new user in mongo
+* `models.py` : model file for a user in the mongo database
+* `tachycardia.py` : determines whether a given heart rate is considered tachycardic given the patient's age
 The database also needs to be running via docker.
 ```
 docker run -v $PWD/db:/data/db -p 27017:27017 mongo
