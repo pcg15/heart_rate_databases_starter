@@ -6,7 +6,7 @@ Databases Assignment ([here](https://github.com/mlp6/Medical-Software-Design/blo
 
 Server code can be found in `flaskhandler.py`. The accompanying client program is found in `client.py`.
 
-This server handles GET and POST requests for the following instances:
+This server handles `GET` and `POST` requests for the following instances:
 * `POST /api/heart_rate` that finds and adds user information or creates a new user given json input from `client.py`
 * `GET /api/heart_rate/<user_email>` that finds user information and outputs all user heart rates
 * `GET /api/heart_rate/average/<user_email>` that finds user information and outputs the average user heart rate 
@@ -32,6 +32,7 @@ All other python files in this repo contain functions called by `flaskhandler.py
 * `main.py` : template for finding and creating a new user in mongo
 * `models.py` : model file for a user in the mongo database
 * `tachycardia.py` : determines whether a given heart rate is considered tachycardic given the patient's age
+
 The database also needs to be running via docker.
 ```
 docker run -v $PWD/db:/data/db -p 27017:27017 mongo
