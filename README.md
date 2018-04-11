@@ -10,6 +10,7 @@ This server handles GET and POST requests for the following instances:
 * `GET /api/heart_rate/average/<user_email>` that finds user information and outputs the average user heart rate 
 * `POST /api/heart_rate/interval_average` that finds user information and returns the average user heart rate over a user specified time interval and also returns whether the average is considered tachycardic given the user's age
 * `GET /api/heart_rate/get_data/<user_email>` that finds user information and returns heart rate and accompanying time stamp information for the given user
+
 The `client.py` file can be altered to reflect changing user input. Given the server and client files, the program should be able to handle all instances stated above.
 
 To get started with this program, you first need to get the server program running. After installing all python dependencies using 
